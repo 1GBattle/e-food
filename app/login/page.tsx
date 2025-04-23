@@ -4,7 +4,7 @@ import { FormEvent, useState } from "react";
 import Link from "next/link";
 
 export default function LoginPage() {
-  const [userName, setUserName] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const handleFormSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -38,9 +38,9 @@ export default function LoginPage() {
             <input
               className="bg-gray-50 w-[90%] h-10 p-2 rounded-sm shadow-xs outline outline-gray-200 md:w-full"
               type="text"
-              placeholder="Username"
-              value={userName}
-              onChange={(e) => setUserName(e.target.value)}
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
           </div>
           <div className="flex flex-col justify-center items-center gap-4 w-full">
