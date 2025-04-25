@@ -2,7 +2,6 @@
 import Image from "next/image";
 import { useState } from "react";
 import Link from "next/link";
-import googleSignin from "@/public/assets/logos/google_signin.png";
 import { loginUser, loginUserWithGoogle } from "@/app/lib/firebase/userUtils";
 import { useUserStore } from "@/app/state/store";
 import { useRouter } from "next/navigation";
@@ -104,7 +103,7 @@ export default function LoginPage() {
             >
               <Image
                 className="w-full h-[4rem]"
-                src={googleSignin}
+                src="/assets/logos/google_signin.png"
                 alt={"google signin button"}
                 height={24}
                 width={200}
