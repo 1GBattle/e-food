@@ -1,16 +1,42 @@
 "use client";
 import Image from "next/image";
-import { FormEvent, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
+import googleSignin from "@/public/assets/logos/google_signin.png";
+import { loginUser, loginUserWithGoogle } from "@/app/lib/firebase/userUtils";
+import { useUserStore } from "@/app/state/store";
+import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleFormSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const userState = useUserStore((state) => state);
+  const router = useRouter();
 
-    console.log("form submitted");
+  const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    loginUser(email, password).then((user) => {
+      if (user instanceof Error || user === null) {
+        console.log(user!.message);
+        return;
+      } else {
+        userState.setUser(user);
+        router.push("/");
+      }
+    });
+  };
+
+  const handleGoogleLogin = () => {
+    loginUserWithGoogle().then((user) => {
+      if (user instanceof Error || user === null) {
+        console.log(user!.message);
+        return;
+      } else {
+        userState.setUser(user);
+        router.push("/");
+      }
+    });
   };
 
   return (
@@ -21,8 +47,8 @@ export default function LoginPage() {
             className="rounded-full overflow-hidden"
             src={"/assets/logos/main_logo.png"}
             alt="logo"
-            width={260}
-            height={260}
+            width={240}
+            height={240}
             priority={true}
           />
           <div className="flex flex-col justify-center items-center bg-gradient-to-bl gap-8">
@@ -32,7 +58,7 @@ export default function LoginPage() {
         </div>
         <form
           className="h-2/5 md:h-1/2 md:w-2/5 shadow-sm p-4 flex flex-col items-center justify-center gap-12 bg-white rounded-md  md:outline-gray-200 md:rounded-md md:shadow-xl"
-          onSubmit={(e) => handleFormSubmit(e)}
+          onSubmit={(e) => handleLogin(e)}
         >
           <div className="w-full flex flex-col justify-center items-center mt-8 md:w-full">
             <input
@@ -63,12 +89,26 @@ export default function LoginPage() {
             </div>
           </div>
 
-          <div className="flex justify-center items-center w-full">
+          <div className="flex flex-col justify-center items-center w-full gap-6">
             <button
-              className="bg-gradient-to-br from-sky-100 to-sky-300 hover:from-sky-200 hover:to-sky-400 active:from-sky-200 active:to-sky-400 cursor-pointer w-2/3 p-2 text-xl font-bold rounded-md"
+              className="bg-gradient-to-br from-sky-100 to-sky-300 hover:from-sky-200 hover:to-sky-400 active:from-sky-200 active:to-sky-400 cursor-pointer w-2/3 p-2 text-2xl font-bold rounded-md h-[3rem]"
               type={"submit"}
             >
               Login
+            </button>
+
+            <button
+              className="w-2/3 cursor-pointer"
+              type={"button"}
+              onClick={() => handleGoogleLogin()}
+            >
+              <Image
+                className="w-full h-[4rem]"
+                src={googleSignin}
+                alt={"google signin button"}
+                height={24}
+                width={200}
+              />
             </button>
           </div>
         </form>

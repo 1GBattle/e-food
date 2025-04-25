@@ -1,15 +1,16 @@
 import baseApi from "@/app/lib/features/baseApi";
-import User from "@/app/models/User.model";
 
 const userApi = baseApi.injectEndpoints({
-  endpoints: (builder) => ({
-    getUser: builder.query<User, void>({
-      query: (userId) => ``,
+    endpoints: (builder) => ({
+        addLike: builder.mutation<void, { recipeId: string; userId: string }>({
+            queryFn: (args) => {
+                const {recipeId, userId} = args;
+                try {
+                    addLike
+                }
+            },
+        }),
     }),
-    addLike: builder.mutation<void, { userId: string; recipeId: string }>({
-      queryFn: (args) => {},
-    }),
-  }),
 });
 
-export const {} = userApi;
+export const {useAddLikeMutation} = userApi;
