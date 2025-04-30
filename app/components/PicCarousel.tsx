@@ -1,8 +1,10 @@
 "use client";
 import Carousel from "react-multi-carousel";
 import RecipeCard from "@/app/components/RecipeCard";
+import { useRecipeStore } from "@/app/state/store";
 
 export default function PicCarousel() {
+  const recipes = useRecipeStore((state) => state.recipes);
   const responsive = {
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
@@ -21,24 +23,6 @@ export default function PicCarousel() {
     },
   };
 
-  const items = [
-    {
-      picUrl: "/assets/food-images/pastas/chicken-seafood-pasta.png",
-      title: "Chicken Seafood Pasta",
-      link: "/recipes/chicken-seafood-pasta",
-    },
-    {
-      picUrl: "/assets/food-images/pastas/red-sauce-pasta.png",
-      title: "Red Sauce Pasta",
-      link: "/recipes/red-sauce-pasta",
-    },
-    {
-      picUrl: "/assets/food-images/pastas/creamy-garlic.png",
-      title: "Creamy Garlic Pasta",
-      link: "/recipes/creamy-garlic-pasta",
-    },
-  ];
-
   return (
     <Carousel
       className="px-2 py-4 overflow-x-auto"
@@ -48,13 +32,8 @@ export default function PicCarousel() {
       transitionDuration={500}
     >
       <div className="flex flex-row gap-4">
-        {items.map((item, index) => (
-          <RecipeCard
-            key={index}
-            title={item.title}
-            picUrl={item.picUrl}
-            link={item.link}
-          />
+        {recipes.map((recipe, index) => (
+          <RecipeCard key={index} recipe={recipe} />
         ))}
       </div>
     </Carousel>

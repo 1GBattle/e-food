@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import User from "@/app/models/User.model";
 import Recipe from "@/app/models/Recipe.model";
+import { getRecipes } from "@/app/lib/firebase/recipeUtils";
 
 interface UserStore {
   setUser: (user: User) => void;
@@ -23,5 +24,8 @@ export const useUserStore = create<UserStore>()((set) => ({
 
 export const useRecipeStore = create<RecipeStore>()((set) => ({
   recipes: [],
-  initializeStore: () => set({ recipes: [] }),
+  initializeStore: async () =>
+    await getRecipes().then((recipes) => {
+      set({ recipes: recipes });
+    }),
 }));

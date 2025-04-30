@@ -1,16 +1,16 @@
 import { FaRegHeart } from "react-icons/fa";
 import Link from "next/link";
+import Recipe from "@/app/models/Recipe.model";
 
 interface RecipeCardProps {
-  title: string;
-  picUrl: string;
-  link: string;
+  recipe: Recipe;
 }
 
-export default function RecipeCard({ picUrl, title, link }: RecipeCardProps) {
+export default function RecipeCard({ recipe }: RecipeCardProps) {
+  const { title, picUrl, id } = recipe;
   return (
     <>
-      <Link href={link} className="relative shrink-0">
+      <Link href={`/recipes/${id}`} className="relative shrink-0">
         <img
           className="w-[300px] h-44 rounded-lg shadow-md bg-blend-overlay brightness-75"
           src={`${picUrl}`}

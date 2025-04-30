@@ -15,7 +15,10 @@ export default function IngredientList({ ingredients }: Props) {
 
       <ol className="px-12">
         {ingredients.map((ingredient) => (
-          <li className="flex flex-row items-center justify-between gap-4 px-4 py-4">
+          <li
+            className="flex flex-row items-center justify-between gap-4 px-4 py-4"
+            key={ingredient.foodItem}
+          >
             <p className="text-xl ">
               {ingredient.quantity} {ingredient.measurement}{" "}
               {ingredient.foodItem}
