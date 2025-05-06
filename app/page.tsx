@@ -4,12 +4,8 @@ import Navbar from '@/app/components/Navbar';
 import PicCarousel from '@/app/components/PicCarousel';
 import RecipeCard from '@/app/components/RecipeCard';
 import { FcBullish, FcCalendar } from 'react-icons/fc';
-import Recipe from '@/app/models/Recipe.model';
 import { useRecipeStore } from '@/app/state/store';
-import { v4 as uuid } from 'uuid';
-import { lorem } from 'next/dist/client/components/react-dev-overlay/ui/utils/lorem';
 import { useEffect } from 'react';
-import { addRecipe } from './lib/firebase/recipeUtils';
 
 export default function Home() {
 	const recipeStore = useRecipeStore((state) => state);

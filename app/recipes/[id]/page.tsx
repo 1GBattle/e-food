@@ -5,17 +5,17 @@ import { FaRegHeart, FaRegLightbulb } from "react-icons/fa";
 import IngredientList from "@/app/components/IngredientList";
 import InstructionsList from "@/app/components/InstructionsList";
 import { useParams, useRouter } from "next/navigation";
-import { useRecipeStore } from "@/app/state/store";
+import { useRecipeStore, useUserStore } from "@/app/state/store";
+import { useMemo } from "react";
 
 export default function RecipePage() {
-  const 
   const { id } = useParams();
   const router = useRouter();
-  const recipe = useRecipeStore((state) => state.recipes).find(
-    (recipe) => recipe.id === id,
-  );
+  const recipe = useRecipeStore((state) => state.currentRecipe);
 
-  if (!recipe) router.push("/not-found");
+  useMemo(() => {
+    useRecipeStore.getState().getRecipeById(id as string);
+  }, []);
 
   if (recipe)
     return (
@@ -27,11 +27,12 @@ export default function RecipePage() {
             width={300}
             height={300}
             alt="food item"
+            priority
           />
 
           <div className="absolute bottom-1 left-0  mt-8 text-left px-2 flex items-center justify-between w-full">
             <h2 className="text-2xl font-bold text-white whitespace-nowrap w-2/3 text-ellipsis truncate">
-              Recipe name goes here
+              {recipe.title}
             </h2>
 
             <FaRegHeart className="h-6 w-6" color="white" />
