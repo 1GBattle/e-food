@@ -39,6 +39,22 @@ export const getRecipeById = async (id: string) => {
   }
 };
 
+export const getRecipesByCategory = async (category: string) => {
+  try {
+    const recipesRef = collection(db, "recipes");
+    const recipeQuery = query(
+      recipesRef,
+      where("tags", "array-contains", category)
+    );
+
+    const querySnapshot = await getDocs(recipeQuery);
+
+    if (querySnapshot.empty) return [];
+
+    return querySnapshot.docs.map((doc) => doc.data() as Recipe);
+  } catch (error) {}
+};
+
 export const addRecipe = async (recipe: Recipe) => {
   await setDoc(doc(db, "recipes", recipe.id), recipe);
 };

@@ -20,9 +20,9 @@ export default function RecipePage() {
   if (recipe)
     return (
       <div>
-        <div className="relative">
+        <div className="relative flex justify-center items-center xl:p-8">
           <Image
-            className="w-full shadow-md bg-blend-overlay  brightness-75"
+            className="w-full h-[460px] lg:h-[600px] shadow-lg bg-blend-overlay brightness-75 xl:w-2/3"
             src={recipe.picUrl}
             width={300}
             height={300}
@@ -30,12 +30,15 @@ export default function RecipePage() {
             priority
           />
 
-          <div className="absolute bottom-1 left-0  mt-8 text-left px-2 flex items-center justify-between w-full">
-            <h2 className="text-2xl font-bold text-white whitespace-nowrap w-2/3 text-ellipsis truncate">
+          <div className="absolute bottom-2 right-0 mt-8 text-left flex items-center justify-between w-full px-8 xl:w-8/12 xl:right-1/6 xl:justify-between xl:bottom-8">
+            <h2 className="text-3xl font-bold text-white whitespace-nowrap w-2/3 text-ellipsis truncate xl:text-4xl">
               {recipe.title}
             </h2>
 
-            <FaRegHeart className="h-6 w-6" color="white" />
+            <FaRegHeart
+              className="h-7 w-7 xl:h-8 xl:w-8 cursor-pointer"
+              color="white"
+            />
           </div>
         </div>
 

@@ -23,15 +23,15 @@ export default function CategorySelector() {
       icon: <LuSandwich className="h-8 w-8" />,
     },
     {
-      title: "Pastas",
+      title: "Pasta",
       icon: <CiBowlNoodles className="h-8 w-8" />,
     },
     {
-      title: "Adults",
+      title: "Adult",
       icon: <GiMartini className="h-8 w-8" />,
     },
     {
-      title: "Deserts",
+      title: "Desert",
       icon: <CiIceCream className="h-8 w-8" />,
     },
   ];
@@ -43,9 +43,12 @@ export default function CategorySelector() {
           className="flex flex-col justify-center items-center"
           key={category.title}
         >
-          <Link className="flex flex-col justify-center items-center" href={`/categories/${category.title.toLowerCase()}`}>
-          {category.icon}
-          <p>{category.title}</p>
+          <Link
+            className="flex flex-col justify-center items-center"
+            href={`/categories/${category.title.toLowerCase()}`}
+          >
+            {category.icon}
+            <p>{category.title}</p>
           </Link>
         </div>
       ))}

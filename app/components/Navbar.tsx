@@ -1,13 +1,19 @@
 "use client";
 import { useUserStore } from "@/app/state/store";
 
-export default function Navbar() {
+interface Props {
+  showWelcomeMessage: boolean;
+}
+
+export default function Navbar({ showWelcomeMessage }: Props) {
   const user = useUserStore((state) => state.user);
   return (
     <div>
-      <div className="flex justify-between px-4 py-2">
-        <h1 className="text-2xl">Welcome {user?.username}!</h1>
-      </div>
+      {showWelcomeMessage && (
+        <div className="flex justify-between px-4 py-2">
+          <h1 className="text-2xl">Welcome {user?.username}!</h1>
+        </div>
+      )}
 
       <div className="m-4">
         <input
