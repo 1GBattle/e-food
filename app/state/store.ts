@@ -20,7 +20,9 @@ interface RecipeStore {
   getRecipesByCategory: (category: string) => void;
   recipes: Recipe[];
   currentRecipe?: Recipe | null;
+  filteredRecipes?: Recipe[];
   searchRecipes: (searchTerm: string) => void;
+  clearStore: () => void;
 }
 
 export const useUserStore = create<UserStore>()((set) => ({
@@ -47,9 +49,13 @@ export const useRecipeStore = create<RecipeStore>()((set) => ({
   searchRecipes: (searchTerm: string) => {
     const filteredRecipes = useRecipeStore
       .getState()
-      .recipes.filter((recipe) =>
-        recipe.title.toLowerCase().includes(searchTerm.toLowerCase())
+      .recipes.filter(
+        (recipe) =>
+          recipe.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          recipe.description.toLowerCase().includes(searchTerm.toLowerCase())
       );
-    set({ recipes: filteredRecipes });
+    set({ filteredRecipes: filteredRecipes });
   },
+  clearStore: () =>
+    set({ recipes: [], filteredRecipes: [], currentRecipe: null }),
 }));
